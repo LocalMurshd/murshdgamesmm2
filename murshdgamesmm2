@@ -1,0 +1,137 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Murshd Murder Myster 2 Beta!",
+   LoadingTitle = "Murshd Games script!",
+   LoadingSubtitle = "by Murshd games!",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = MurshdSaves, -- Create a custom folder for your hub/game
+      FileName = "MurshdHub"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "ztMcrmEAWP", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key",
+      Subtitle = "Key System",
+      Note = "Key In Discord Server",
+      FileName = "ffff", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your scriptش
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://pastebin.com/raw/AtgzSPWK"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+Rayfield:Notify({
+   Title = "Thanks For using Murshd Script",
+   Content = "Welcome to Murshd Games Mm2 script beta!",
+   Duration = 5,
+   Image = 18287814041,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+
+
+ 
+
+--local MiscTab = Window:CreateTab("✨ Misc", nil) 
+--local PlayerTab = Window:CreateTab("🙎‍♂️ Player", nil) 
+--local SettingsTab = Window:CreateTab("🎮 Settings", nil) 
+
+--Main tab Sections start
+local MainTab = Window:CreateTab("🏠 Main", nil) 
+local MainSection = MainTab:CreateSection("UseFull Scripts")
+
+local Button = MainTab:CreateButton({
+    Name = "Infinite Yeild",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end,
+ })
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+
+-- Assuming 'player' is defined somewhere in your script or accessible globally
+
+local Button = MainTab:CreateButton({
+    Name = "Reset Character",
+    Callback = function()
+        if player and player.Character then
+            -- Destroy the current character model
+            player.Character:Destroy()
+
+            -- Load a new character model
+            player:LoadCharacter()
+        end
+    end,
+})
+
+
+-- Function to set CanCollide for all character parts
+local function setCharacterCollide(canCollide)
+    local character = player.Character or player.CharacterAdded:Wait()
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CanCollide = canCollide
+        end
+    end
+end
+
+local Toggle
+
+-- Ensure the character reference is updated if the character respawns
+player.CharacterAdded:Connect(function(char)
+    setCharacterCollide(not Toggle.CurrentValue)
+end)
+
+Toggle = MainTab:CreateToggle({
+    Name = "Noclip",
+    CurrentValue = false,
+    Flag = "Toggle1", -- Unique identifier for the toggle
+    Callback = function(Value)
+        -- Value is a boolean indicating whether the toggle is on or off
+        setCharacterCollide(not Value)
+    end,
+})
+
+
+local Button = MainTab:CreateButton({
+    Name = "Esp All Players",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/LocalMurshd/Murshd-mm2-aimbot/main/Murshdmm2Espplayers'))()
+    end,
+ })
+--main tab end
+
+--murder tab start
+
+local MurderTab = Window:CreateTab("🔪 Murder", nil)
+local MurderSection = MurderTab:CreateSection("Murder Scripts")
+
+--murder tab end
+
+--sheriff tab start
+
+local sheriffTab = Window:CreateTab("🔫 Sheriff", nil) 
+local SheriffSection = sheriffTab:CreateSection("Sheriff Scripts")
+
+local Button = sheriffTab:CreateButton({
+    Name = "Aimbot",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/CITY512/modules/main/aimbot.lua'))()
+    end,
+ })
+--sheriff tab end
